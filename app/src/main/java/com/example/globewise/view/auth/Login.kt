@@ -20,11 +20,9 @@ import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun Login(
-//    mAuth: FirebaseAuth,
-//    signInViewModel: SignInViewModel,
-//    applicationContext: Context,
-//    navController: NavController,
-//    onGoogleSignClick: () -> Unit,
+    signInViewModel: SignInViewModel,
+    applicationContext: Context,
+    navController: NavController,
 ) {
     Scaffold(
         modifier = Modifier
@@ -45,7 +43,6 @@ fun Login(
                 modifier = Modifier
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center
-
             )
         }
     }
