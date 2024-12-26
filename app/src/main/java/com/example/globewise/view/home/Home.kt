@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun Home() {
-
     Column (
         modifier = Modifier
             .fillMaxSize()
