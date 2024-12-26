@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -88,6 +89,21 @@ fun Login(
                     Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                 }
                 else -> {}
+            }
+            Box(
+                modifier = Modifier
+                    .size(90.dp)
+                    .align(Alignment.CenterHorizontally)
+                    .background(color = Color.White),
+                contentAlignment = Alignment.Center,
+            ){
+                Icon(
+                    painter = painterResource(id = R.drawable.icon_enter),
+                    contentDescription = "icon for signin logo",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(5.dp)
+                )
             }
             Text(
                 text = if (isLoginScreen) "Sign in." else "Sign up.",
@@ -181,9 +197,8 @@ fun Login(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .shadow(4.dp),
+                    .height(75.dp)
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Black,
@@ -196,16 +211,15 @@ fun Login(
                     fontSize = 18.sp
                 )
             }
-
-            Spacer(modifier = Modifier.height(12.dp))
-
             Text(
                 text = if (isLoginScreen) "Don't have an account? Sign up" else "Already have an account? Sign in",
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 14.sp,
                 modifier = Modifier
+                    .fillMaxWidth()
                     .clickable { isLoginScreen = !isLoginScreen }
-                    .padding(5.dp)
+                    .padding(5.dp),
+                textAlign = TextAlign.Center
             )
         }
     }
