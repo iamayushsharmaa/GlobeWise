@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -22,11 +23,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.globewise.R
 import com.example.globewise.ui.theme.poppinsFontFamily
 
 @Composable
-fun StartingPage() {
+fun StartingPage(
+    navController: NavController,
+    onGoogleSignInClick: () -> Unit
+) {
     Scaffold (
         modifier = Modifier
             .fillMaxSize()
@@ -61,7 +66,10 @@ fun StartingPage() {
                         contentColor = Color.White,
                         containerColor = Color.Black
                     ),
-                    onClick = {}
+                    shape = RoundedCornerShape(18.dp),
+                    onClick = {
+                        onGoogleSignInClick()
+                    }
                 ) {
                     Row(
                         modifier = Modifier
@@ -75,7 +83,7 @@ fun StartingPage() {
                             contentDescription = "icon google"
                         )
                         Text(
-                            text = "Continue with Google",
+                            text = "Sign up with Google",
                             fontFamily = poppinsFontFamily,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.White,
@@ -84,7 +92,6 @@ fun StartingPage() {
                         )
                     }
                 }
-
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -93,7 +100,10 @@ fun StartingPage() {
                         contentColor = Color.White,
                         containerColor = Color.Black
                     ),
-                    onClick = {}
+                    shape = RoundedCornerShape(18.dp),
+                    onClick = {
+                        navController.navigate("login")
+                    }
                 ) {
                     Row(
                         modifier = Modifier
@@ -108,7 +118,7 @@ fun StartingPage() {
                             contentDescription = "icon google"
                         )
                         Text(
-                            text = "Email and Password",
+                            text = "Sign up with Email",
                             fontFamily = poppinsFontFamily,
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 20.sp,
@@ -117,8 +127,17 @@ fun StartingPage() {
                         )
                     }
                 }
-
-
+                Text(
+                    text = "Already have an account?",
+                    fontFamily = poppinsFontFamily,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp, top = 8.dp),
+                    textAlign = TextAlign.Center
+                )
             }
 
         }

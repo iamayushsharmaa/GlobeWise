@@ -1,4 +1,4 @@
-package com.example.globewise.view.auth
+package com.example.globewise.viewmodel
 
 import android.app.Activity.RESULT_OK
 import androidx.activity.compose.ManagedActivityResultLauncher

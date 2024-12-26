@@ -1,31 +1,31 @@
 package com.example.globewise.domain.firebase
 
-import com.google.firebase.auth.AuthResult
+import com.example.globewise.data.model.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth
-): AuthRepository {
+) : AuthRepository {
 
     override suspend fun registerUser(email: String, password: String): AuthResult {
         return try {
             val result = auth.createUserWithEmailAndPassword(email, password).await()
-            result
+            AuthResult.Success(result.user)
         } catch (e: Exception) {
-            throw Exception("Registration failed: ${e.message}")
+            AuthResult.Error("Registration failed: ${e.message}")
         }
     }
 
     override suspend fun loginUser(email: String, password: String): AuthResult {
         return try {
             val result = auth.signInWithEmailAndPassword(email, password).await()
-            result
+            AuthResult.Success(result.user)
         } catch (e: Exception) {
-            throw Exception("Login failed: ${e.message}")
+            AuthResult.Error("Login failed: ${e.message}")
         }
     }
-
-    fun getCurrentUser() = auth.currentUser
+    fun getCurrentUser(): FirebaseUser? = auth.currentUser
 }
