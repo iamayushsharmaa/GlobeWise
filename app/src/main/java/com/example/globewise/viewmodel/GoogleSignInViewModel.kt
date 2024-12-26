@@ -11,9 +11,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.globewise.data.model.SignInState
 import com.example.globewise.domain.firebase.GoogleAuthUiClient
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignInViewModel(
+
+@HiltViewModel
+class SignInViewModel @Inject constructor(
     private val googleAuthUiClient: GoogleAuthUiClient,
     private val mAuth: FirebaseAuth
 ) : ViewModel() {

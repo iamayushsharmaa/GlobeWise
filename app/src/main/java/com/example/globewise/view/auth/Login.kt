@@ -10,12 +10,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -28,12 +32,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.globewise.R
 import com.example.globewise.data.model.AuthState
 import com.example.globewise.ui.theme.poppinsFontFamily
 import com.example.globewise.viewmodel.EmailSignInViewModel
@@ -50,7 +56,7 @@ fun Login(
 
     var isLoginScreen by remember { mutableStateOf(true) }
 
-    val authState by viewModel.authState.collectAsState()
+    val authState by viewModel.authState.collectAsState(initial = AuthState.Idle)
     val context = LocalContext.current
 
     Scaffold(
@@ -90,7 +96,8 @@ fun Login(
                 fontSize = 40.sp,
                 modifier = Modifier
                     .fillMaxWidth(),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onPrimary
             )
 
             if (!isLoginScreen) {
@@ -100,12 +107,19 @@ fun Login(
                     placeholder = {
                         Text("Name", color = Color.Gray)
                     },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.icon_user),
+                            contentDescription = "",
+                            modifier = Modifier.size(26.dp)
+                        )
+                    },
+                    label = { Text("Name") },
+                    shape = RoundedCornerShape(16.dp),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .clip(RoundedCornerShape(8.dp))
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
                         .shadow(4.dp)
-                        .background(Color.White)
                 )
             }
 
@@ -116,6 +130,14 @@ fun Login(
                     Text("Email", color = Color.Gray)
                 },
                 label = {Text("Email")},
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.icon_email),
+                        contentDescription = "email icon",
+                        modifier = Modifier.size(26.dp)
+                    )
+                },
+                shape = RoundedCornerShape(16.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
@@ -131,6 +153,14 @@ fun Login(
                     Text("Password", color = Color.Gray)
                 },
                 label = { Text(text = "Password") },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.icon_user),
+                        contentDescription = "",
+                        modifier = Modifier.size(26.dp)
+                    )
+                },
+                shape = RoundedCornerShape(16.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
@@ -154,6 +184,7 @@ fun Login(
                     .padding(horizontal = 16.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .shadow(4.dp),
+                shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Black,
                     contentColor = Color.White
@@ -166,15 +197,15 @@ fun Login(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             Text(
                 text = if (isLoginScreen) "Don't have an account? Sign up" else "Already have an account? Sign in",
-                color = Color.Blue,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 14.sp,
                 modifier = Modifier
                     .clickable { isLoginScreen = !isLoginScreen }
-                    .padding(8.dp)
+                    .padding(5.dp)
             )
         }
     }
