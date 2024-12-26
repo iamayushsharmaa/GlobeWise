@@ -1,6 +1,7 @@
 package com.example.globewise.view.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -40,8 +41,8 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(key1 = signInState.isSignInSuccessful) {
                     if (signInState.isSignInSuccessful) {
-                        //showToast(applicationContext, "Sign in successful")
-                        navController.navigate("home")
+                        Toast.makeText(applicationContext, "Sign in successful",Toast.LENGTH_SHORT).show()
+                        navController.navigate("main_screen")
                         signInViewModel.resetState()
                     }
                 }
@@ -57,8 +58,11 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("login") {
                         Login(
-                            navController = navController
+                            navController = navController,
                         )
+                    }
+                    composable("main_screen"){
+                        MainScreen(navController)
                     }
                 }
             }

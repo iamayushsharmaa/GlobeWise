@@ -70,5 +70,8 @@ dependencies {
     implementation( libs.androidx.hilt.navigation.compose)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.material)
+
 
 }

@@ -16,11 +16,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -35,6 +37,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,10 +54,10 @@ fun Login(
     viewModel: EmailSignInViewModel = hiltViewModel(),
     navController: NavController,
 ) {
-
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
+    var passwordVisible by remember { mutableStateOf(false) }
 
     var isLoginScreen by remember { mutableStateOf(true) }
 
@@ -67,7 +71,8 @@ fun Login(
         Column (
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it),
+                .padding(it)
+                .background(color = Color.White),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ){
@@ -100,11 +105,13 @@ fun Login(
                 Icon(
                     painter = painterResource(id = R.drawable.icon_enter),
                     contentDescription = "icon for signin logo",
+                    tint = Color.Black,
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(5.dp)
+                        .padding(12.dp)
                 )
             }
+            Spacer(Modifier.height(10.dp))
             Text(
                 text = if (isLoginScreen) "Sign in." else "Sign up.",
                 fontFamily = poppinsFontFamily,
@@ -113,20 +120,23 @@ fun Login(
                 modifier = Modifier
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onPrimary
+                color = Color.Black
             )
+
+            Spacer(Modifier.height(16.dp))
 
             if (!isLoginScreen) {
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
                     placeholder = {
-                        Text("Name", color = Color.Gray)
+                        Text("Name", color = Color.Black)
                     },
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = R.drawable.icon_user),
                             contentDescription = "",
+                            tint = Color.Black,
                             modifier = Modifier.size(26.dp)
                         )
                     },
@@ -134,8 +144,15 @@ fun Login(
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                        .shadow(4.dp)
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = Color.White,
+                        unfocusedContainerColor = Color.White,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        focusedTextColor = Color.Black,
+                        unfocusedTextColor = Color.Black
+                    )
                 )
             }
 
@@ -156,10 +173,15 @@ fun Login(
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .shadow(4.dp)
-                    .background(Color.White)
+                    .padding(horizontal = 16.dp, vertical = 5.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black
+                )
             )
 
             OutlinedTextField(
@@ -176,13 +198,31 @@ fun Login(
                         modifier = Modifier.size(26.dp)
                     )
                 },
+                trailingIcon = {
+                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                        Icon(
+                            painter = painterResource(
+                                id = if (passwordVisible) R.drawable.show_password_icon
+                                else R.drawable.icon_hidepassword
+                            ),
+                            contentDescription = if (passwordVisible) "Hide Password" else "Show Password"
+                        )
+                    }
+                },
+                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black
+                ),
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .shadow(4.dp)
-                    .background(Color.White)
+                    .padding(horizontal = 16.dp, vertical = 5.dp)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -212,8 +252,8 @@ fun Login(
                 )
             }
             Text(
-                text = if (isLoginScreen) "Don't have an account? Sign up" else "Already have an account? Sign in",
-                color = MaterialTheme.colorScheme.primary,
+                text = if (isLoginScreen) "Don't have an account? Sign up!" else "Already have an account? Sign in!",
+                color = Color.Black,
                 fontSize = 14.sp,
                 modifier = Modifier
                     .fillMaxWidth()

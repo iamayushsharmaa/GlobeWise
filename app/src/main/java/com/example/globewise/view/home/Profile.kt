@@ -1,12 +1,10 @@
 package com.example.globewise.view.home
 
-import android.net.wifi.hotspot2.pps.HomeSp
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.example.globewise.view.data.BottomNavItem
 
 @Composable
-fun Home() {
+fun Profile() {
 
-    Column {  }
 }

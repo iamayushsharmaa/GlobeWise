@@ -1,6 +1,7 @@
 package com.example.globewise.view.auth
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -137,18 +138,20 @@ fun StartingPage(
                     }
                 }
                 Text(
-                    text = "Already have an account?",
+                    text = "Already have an account? Sign in!",
                     fontFamily = poppinsFontFamily,
                     fontWeight = FontWeight.Black,
                     fontSize = 14.sp,
                     color = Color.Black,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 16.dp, top = 5.dp),
+                        .padding(bottom = 16.dp, top = 5.dp)
+                        .clickable {
+                            navController.navigate("login")
+                        },
                     textAlign = TextAlign.Center
                 )
             }
-
         }
     }
 }
