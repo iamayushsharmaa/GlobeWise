@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1092651493303",
+    "project_id": "globewise-1c982",
+    "storage_bucket": "globewise-1c982.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092651493303:android:c2537c06ec5261be9f6a32",
+        "android_client_info": {
+          "package_name": "com.example.globewise"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeaa52TPU3p8oZBzHUN4cfAurhva9Gymk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
