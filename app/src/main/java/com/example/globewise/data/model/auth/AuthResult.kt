@@ -1,4 +1,4 @@
-package com.example.globewise.data.model
+package com.example.globewise.data.model.auth
 
 import com.google.firebase.auth.FirebaseUser
 

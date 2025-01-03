@@ -15,7 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.globewise.data.model.SignInState
+import com.example.globewise.data.model.auth.SignInState
 import com.example.globewise.ui.theme.GlobeWiseTheme
 import com.example.globewise.view.auth.Login
 import com.example.globewise.viewmodel.SignInViewModel

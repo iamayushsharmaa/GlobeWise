@@ -1,4 +1,4 @@
-package com.example.globewise.data.model
+package com.example.globewise.data.model.auth
 
 data class User(
     val email: String = "",

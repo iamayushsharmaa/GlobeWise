@@ -72,6 +72,8 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.material)
-
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
 
 }

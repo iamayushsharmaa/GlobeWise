@@ -1,6 +1,6 @@
 package com.example.globewise.domain.firebase
 
-import com.example.globewise.data.model.AuthResult
+import com.example.globewise.data.model.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 
 

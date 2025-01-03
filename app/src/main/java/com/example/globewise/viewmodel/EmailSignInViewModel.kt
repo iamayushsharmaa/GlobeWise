@@ -2,9 +2,9 @@ package com.example.globewise.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.globewise.data.model.AuthResult
-import com.example.globewise.data.model.AuthState
-import com.example.globewise.data.model.User
+import com.example.globewise.data.model.auth.AuthResult
+import com.example.globewise.data.model.auth.AuthState
+import com.example.globewise.data.model.auth.User
 import com.example.globewise.domain.firebase.AuthRepository
 import com.example.globewise.domain.firebase.SaveUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

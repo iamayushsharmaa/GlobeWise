@@ -1,6 +1,6 @@
 package com.example.globewise.domain.firebase
 
-import com.example.globewise.data.model.User
+import com.example.globewise.data.model.auth.User
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
