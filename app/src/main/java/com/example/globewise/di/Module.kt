@@ -2,6 +2,7 @@ package com.example.globewise.di
 
 import com.example.globewise.data.remote.NewsApiService
 import com.example.globewise.domain.repository.NewsRepository
+import com.example.globewise.domain.repository.NewsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +34,7 @@ object Module {
     @Provides
     @Singleton
     fun provideNewsRepository(newsApiService: NewsApiService): NewsRepository {
-        return NewsRepository(newsApiService)
+        return NewsRepositoryImpl(newsApiService)
     }
 
 }
