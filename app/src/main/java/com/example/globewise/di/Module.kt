@@ -37,10 +37,11 @@ object Module {
 
     @Provides
     fun provideGoogleAuthUiClient(
+        firebaseAuth: FirebaseAuth,
         @ApplicationContext context: Context,
         oneTapClient: SignInClient
     ): GoogleAuthUiClient {
-        return GoogleAuthUiClient(context, oneTapClient)
+        return GoogleAuthUiClient(firebaseAuth, context, oneTapClient)
     }
 
     @Provides

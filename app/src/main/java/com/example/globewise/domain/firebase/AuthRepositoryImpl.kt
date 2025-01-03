@@ -27,5 +27,5 @@ class AuthRepositoryImpl @Inject constructor(
             AuthResult.Error("Login failed: ${e.message}")
         }
     }
-    fun getCurrentUser(): FirebaseUser? = auth.currentUser
+    override suspend fun getCurrentUser(): FirebaseUser? = auth.currentUser
 }

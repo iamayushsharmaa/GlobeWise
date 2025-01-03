@@ -8,20 +8,21 @@ import com.example.globewise.data.model.SignInResult
 import com.example.globewise.data.model.UserData
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 import java.util.concurrent.CancellationException
+import javax.inject.Inject
 
 
 @Suppress("DEPRECATION")
-class GoogleAuthUiClient (
+class GoogleAuthUiClient @Inject constructor(
+    private val auth : FirebaseAuth,
     private val context: Context,
     private val oneTapClient : SignInClient
 ){
-
-    private val auth = Firebase.auth
 
     suspend fun SignIn(): IntentSender?{
         val result = try {

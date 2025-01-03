@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
 class EmailSignInViewModel @Inject constructor(
     private val repository: AuthRepository,
@@ -22,7 +21,14 @@ class EmailSignInViewModel @Inject constructor(
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Idle)
     val authState: StateFlow<AuthState> = _authState
+    private val _isUserSignedIn = MutableStateFlow(false)
+    val isUserSignedIn: StateFlow<Boolean> = _isUserSignedIn
 
+    init {
+        viewModelScope.launch {
+            _isUserSignedIn.value = repository.getCurrentUser() != null
+        }
+    }
     fun registerUser(email: String, password: String, name: String) {
         viewModelScope.launch {
             _authState.value = AuthState.Loading
@@ -63,3 +69,5 @@ class EmailSignInViewModel @Inject constructor(
         }
     }
 }
+
+

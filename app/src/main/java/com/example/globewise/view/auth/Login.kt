@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,12 +48,14 @@ import androidx.navigation.NavController
 import com.example.globewise.R
 import com.example.globewise.data.model.AuthState
 import com.example.globewise.ui.theme.poppinsFontFamily
+import com.example.globewise.view.data.BottomNavItem
 import com.example.globewise.viewmodel.EmailSignInViewModel
 
 @Composable
 fun Login(
     viewModel: EmailSignInViewModel = hiltViewModel(),
     navController: NavController,
+    onLoginSuccess : () -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -64,6 +67,21 @@ fun Login(
     val authState by viewModel.authState.collectAsState(initial = AuthState.Idle)
     val context = LocalContext.current
 
+    LaunchedEffect(authState) {
+        when (authState) {
+            is AuthState.Loading -> {
+
+            }
+            is AuthState.Success -> {
+               onLoginSuccess()            }
+            is AuthState.Error -> {
+                // Show an error message
+                val errorMessage = (authState as AuthState.Error).message
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+            AuthState.Idle -> TODO()
+        }
+    }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()

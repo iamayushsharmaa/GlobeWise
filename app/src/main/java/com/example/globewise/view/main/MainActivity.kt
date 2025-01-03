@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,6 +20,7 @@ import com.example.globewise.ui.theme.GlobeWiseTheme
 import com.example.globewise.view.auth.Login
 import com.example.globewise.viewmodel.SignInViewModel
 import com.example.globewise.view.auth.StartingPage
+import com.example.globewise.viewmodel.EmailSignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +32,10 @@ class MainActivity : ComponentActivity() {
             GlobeWiseTheme {
                 val navController  = rememberNavController()
                 val signInViewModel = hiltViewModel<SignInViewModel>()
+                val emailSignInViewModel = hiltViewModel<EmailSignInViewModel>()
                 val signInState by signInViewModel.signInState.observeAsState(SignInState())
+                val isUserSignedIn by emailSignInViewModel.isUserSignedIn.collectAsState()
+                val startDestination = if (isUserSignedIn) "main_screen" else "starting_page"
 
                 val launcher = rememberLauncherForActivityResult(
                     contract = ActivityResultContracts.StartIntentSenderForResult(),
@@ -42,12 +47,14 @@ class MainActivity : ComponentActivity() {
                 LaunchedEffect(key1 = signInState.isSignInSuccessful) {
                     if (signInState.isSignInSuccessful) {
                         Toast.makeText(applicationContext, "Sign in successful",Toast.LENGTH_SHORT).show()
-                        navController.navigate("main_screen")
+                        navController.navigate("main_screen"){
+                            popUpTo("starting_page") { inclusive = true }
+                        }
                         signInViewModel.resetState()
                     }
                 }
 
-                NavHost(navController = navController, startDestination = "starting_page") {
+                NavHost(navController = navController, startDestination = startDestination) {
                     composable("starting_page") {
                         StartingPage(
                             navController,
@@ -59,6 +66,11 @@ class MainActivity : ComponentActivity() {
                     composable("login") {
                         Login(
                             navController = navController,
+                            onLoginSuccess = {
+                                navController.navigate("main_screen") {
+                                    popUpTo(0)
+                                }
+                            }
                         )
                     }
                     composable("main_screen"){
