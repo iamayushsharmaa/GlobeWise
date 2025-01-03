@@ -1,18 +1,14 @@
 package com.example.globewise.di
 
-import android.content.Context
-import com.example.globewise.domain.firebase.AuthRepository
-import com.example.globewise.domain.firebase.AuthRepositoryImpl
-import com.example.globewise.domain.firebase.GoogleAuthUiClient
-import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.globewise.data.remote.NewsApiService
+import com.example.globewise.domain.repository.NewsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -21,32 +17,23 @@ object Module {
 
     @Provides
     @Singleton
-    fun provideFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
-    }
-    @Provides
-    @Singleton
-    fun provideFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
-
-
-
-    @Provides
-    fun provideOneTapClient(@ApplicationContext context: Context): SignInClient {
-        return Identity.getSignInClient(context)
-    }
-
-    @Provides
-    fun provideGoogleAuthUiClient(
-        firebaseAuth: FirebaseAuth,
-        @ApplicationContext context: Context,
-        oneTapClient: SignInClient
-    ): GoogleAuthUiClient {
-        return GoogleAuthUiClient(firebaseAuth, context, oneTapClient)
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(NewsApiService.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 
     @Provides
     @Singleton
-    fun provideAuthRepository(auth: FirebaseAuth): AuthRepository {
-        return AuthRepositoryImpl(auth)
+    fun provideNewsApiService(retrofit: Retrofit): NewsApiService {
+        return retrofit.create(NewsApiService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideNewsRepository(newsApiService: NewsApiService): NewsRepository {
+        return NewsRepository(newsApiService)
+    }
+
 }

@@ -1,15 +1,16 @@
 package com.example.globewise.data.remote
 
+import com.example.globewise.data.remote.response.NewsResult
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiInterface {
+interface NewsApiService {
 
     @GET("/v2/everything")
     suspend fun getEverything(
         @Query("q") query: String,
         @Query("apiKey") apiKey: String = API_KEY
-    )
+    ) : NewsResult
 
     @GET("/v2/top-headlines")
     suspend fun getTopHeadLine(
@@ -17,7 +18,7 @@ interface ApiInterface {
         @Query("category") category: String,
         @Query("pageSize") pageSize: Int = 100,
         @Query("apiKey") apiKey: String = API_KEY
-    )
+    ) : NewsResult
 
     companion object{
         const val BASE_URL = "https://newsapi.org"
