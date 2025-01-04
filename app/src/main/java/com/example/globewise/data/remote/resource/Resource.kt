@@ -5,3 +5,5 @@ sealed class Resource<out T> {
     data class Error(val message: String, val cause: Throwable? = null) : Resource<Nothing>()
     object Loading : Resource<Nothing>()
 }
+
+
