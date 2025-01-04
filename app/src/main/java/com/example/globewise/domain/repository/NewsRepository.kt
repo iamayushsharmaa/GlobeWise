@@ -1,6 +1,5 @@
 package com.example.globewise.domain.repository
 
-import com.example.globewise.R
 import com.example.globewise.data.remote.resource.Resource
 import com.example.globewise.data.remote.response.NewsResult
 import kotlinx.coroutines.flow.Flow
