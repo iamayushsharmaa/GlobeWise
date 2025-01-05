@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,14 +19,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import com.example.globewise.R
+import com.example.globewise.domain.Article
+import com.example.globewise.domain.Source
 import com.example.globewise.ui.theme.poppinsFontFamily
 
 @Composable
 fun NewsCard(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    article: Article
 ) {
     Card (
         modifier = Modifier
@@ -37,11 +43,12 @@ fun NewsCard(
                 .fillMaxSize()
                 .padding(5.dp)
         ) {
-            Image(
+            AsyncImage(
+                model = article.urlToImage,
+                contentDescription = "image of news",
                 modifier = Modifier
-                    .size(160.dp),
-                painter = painterResource(id = R.drawable.new_image_template),
-                contentDescription = "new image"
+                    .fillMaxHeight()
+                    .width(100.dp)
             )
             Column(
                 modifier = Modifier
@@ -49,13 +56,13 @@ fun NewsCard(
                     .padding(12.dp)
             ) {
                 Text( // category name
-                    text = "Sports",
+                    text = article.author ?: "Unknown",
                     fontFamily = poppinsFontFamily,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal
                 )
                 Text(
-                    text = "New title top headlines?",
+                    text = article.title,
                     fontFamily = poppinsFontFamily,
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold
@@ -66,13 +73,15 @@ fun NewsCard(
                         .height(40.dp)
                 ) {
                     Text(
-                        text = "12:00 PM",
+                        text = article.publishedAt,
                         fontFamily = poppinsFontFamily,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
                     IconButton(
-                        onClick = {},
+                        onClick = {
+
+                        },
                         modifier = Modifier
                             .fillMaxHeight()
                     ) {
@@ -85,4 +94,21 @@ fun NewsCard(
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewNewsCard() {
+    NewsCard(
+        article = Article(
+            author = "John Doe",
+            content = "This is a detailed article about Jetpack Compose and its advantages...",
+            description = "Learn how Jetpack Compose can help you build beautiful UIs with less code.",
+            publishedAt = "2025-01-05T12:34:00Z",
+            source = Source(id = "1", name = "Tech News"),
+            title = "Jetpack Compose: A New Era of Android UI",
+            url = "https://www.example.com",
+            urlToImage = "https://www.example.com/image.jpg"
+        )
+    )
 }

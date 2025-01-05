@@ -9,6 +9,8 @@ interface NewsApiService {
     @GET("/v2/everything")
     suspend fun getEverything(
         @Query("q") query: String,
+        @Query("pageSize") pageSize: Any,
+        @Query("page") page : Int,
         @Query("apiKey") apiKey: String = API_KEY
     ) : NewsResult
 
@@ -16,8 +18,8 @@ interface NewsApiService {
     suspend fun getTopHeadLine(
         @Query("country") country: String,
         @Query("category") category: String,
-        @Query("pageSize") pageSize: Any,
-        @Query("pageCount") pageCount : Int,
+        @Query("pageSize") pageSize: Int,
+        @Query("page") page: Int,
         @Query("apiKey") apiKey: String = API_KEY
     ) : NewsResult
 

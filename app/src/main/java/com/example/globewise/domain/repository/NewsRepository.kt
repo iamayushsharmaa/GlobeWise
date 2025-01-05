@@ -5,7 +5,7 @@ import com.example.globewise.data.remote.response.NewsResult
 import kotlinx.coroutines.flow.Flow
 
 
-interface NewsRepository {
+interface NewsRepositoryss {
     suspend fun getEverything(query: String): Flow<Resource<NewsResult>>
     suspend fun getTopHeadlines(country: String, category: String): Flow<Resource<NewsResult>>
 }

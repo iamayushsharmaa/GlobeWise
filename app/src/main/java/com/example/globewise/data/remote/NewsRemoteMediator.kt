@@ -15,6 +15,9 @@ import javax.inject.Inject
 @Suppress("IMPLICIT_CAST_TO_ANY")
 @OptIn(ExperimentalPagingApi::class)
 class NewsRemoteMediator @Inject constructor(
+    private val query: String?,
+    private val country: String?,
+    private val category: String?,
     private val newsDatabase: NewsDatabase,
     private val newsApiService: NewsApiService
 ) : RemoteMediator<Int, ArticleEntity>() {
@@ -26,10 +29,9 @@ class NewsRemoteMediator @Inject constructor(
         return try {
             val loadKey = when(loadType) {
                 LoadType.REFRESH -> 1
-                LoadType.PREPEND -> MediatorResult.Success(
+                LoadType.PREPEND -> return MediatorResult.Success(
                     endOfPaginationReached = true
                 )
-
                 LoadType.APPEND -> {
                     val lastItem = state.lastItemOrNull()
                     if (lastItem == null) {
@@ -39,12 +41,21 @@ class NewsRemoteMediator @Inject constructor(
                     }
                 }
             }
-            val news = newsApiService.getTopHeadLine(
-                country = "in",
-                category = "General",
-                pageSize = loadKey,
-                pageCount = state.config.pageSize
-            )
+            val pageSize = state.config.pageSize
+            val news = if (query != null) {
+                newsApiService.getEverything(
+                    query = query,
+                    pageSize = pageSize,
+                    page = loadKey
+                )
+            } else {
+                newsApiService.getTopHeadLine(
+                    country = country ?: "us",
+                    category = category ?: "general",
+                    pageSize = pageSize,
+                    page = loadKey
+                )
+            }
             newsDatabase.withTransaction {
                 if (loadType == LoadType.REFRESH){
                     newsDatabase.newsDao().clearAll()

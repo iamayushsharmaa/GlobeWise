@@ -1,12 +1,13 @@
 package com.example.globewise.di
 
 import android.content.Context
+import androidx.paging.Pager
 import androidx.room.Room
+import com.example.globewise.data.local.ArticleEntity
 import com.example.globewise.data.local.NewsDao
 import com.example.globewise.data.local.NewsDatabase
 import com.example.globewise.data.remote.NewsApiService
-import com.example.globewise.domain.repository.NewsRepository
-import com.example.globewise.domain.repository.NewsRepositoryImpl
+import com.example.globewise.domain.repository.NewsPagerRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,8 +54,17 @@ object Module {
 
     @Provides
     @Singleton
-    fun provideNewsRepository(newsApiService: NewsApiService): NewsRepository {
-        return NewsRepositoryImpl(newsApiService)
+    fun provideNewsRepository(
+        newsApiService: NewsApiService,
+        newsDatabase: NewsDatabase
+    ): NewsPagerRepository {
+        return NewsPagerRepository(newsApiService, newsDatabase)
     }
 
+    @Provides
+    fun provideNewsPager(
+        newsRepository: NewsPagerRepository
+    ): Pager<Int, ArticleEntity> {
+        return newsRepository.getNewsPager(query = null, country = null, category = null)
+    }
 }
