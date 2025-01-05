@@ -9,11 +9,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
 import com.example.globewise.view.data.BottomNavItem
-import com.example.globewise.view.home.Bookmark
-import com.example.globewise.view.home.BottomNavigationBar
-import com.example.globewise.view.home.Home
-import com.example.globewise.view.home.Profile
-import com.example.globewise.view.home.Search
+import com.example.globewise.view.home.bottomnav.Bookmark
+import com.example.globewise.view.home.bottomnav.BottomNavigationBar
+import com.example.globewise.view.home.bottomnav.Home
+import com.example.globewise.view.home.bottomnav.Profile
+import com.example.globewise.view.home.bottomnav.Search
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

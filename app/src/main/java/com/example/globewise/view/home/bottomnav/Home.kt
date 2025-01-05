@@ -1,4 +1,4 @@
-package com.example.globewise.view.home
+package com.example.globewise.view.home.bottomnav
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
@@ -12,19 +12,15 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.globewise.domain.Article
 import com.example.globewise.ui.theme.poppinsFontFamily
 import com.example.globewise.view.home.card.NewsCard
 import com.example.globewise.view.home.card.SlideImageCard
@@ -101,6 +97,7 @@ fun Home(
                     if (articles.loadState.append is LoadState.Loading){
                         CircularProgressIndicator(
                             modifier = Modifier
+                                .padding(5.dp)
                                 .align(Alignment.CenterHorizontally)
                         )
                     }

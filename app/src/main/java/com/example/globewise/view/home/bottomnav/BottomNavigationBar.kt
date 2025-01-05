@@ -1,4 +1,4 @@
-package com.example.globewise.view.home
+package com.example.globewise.view.home.bottomnav
 
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem

@@ -13,17 +13,17 @@ import javax.inject.Singleton
 @OptIn(ExperimentalPagingApi::class)
 @Singleton
 class NewsPagerRepository @Inject constructor(
-    private val newsApiService: NewsApiService,  // Retrofit service for fetching data from the API
-    private val newsDatabase: NewsDatabase       // Room database for local caching
+    private val newsApiService: NewsApiService,
+    private val newsDatabase: NewsDatabase
 ) {
     fun getNewsPager(query: String?, country: String?, category: String?): Pager<Int, ArticleEntity> {
         return Pager(
             config = PagingConfig(
-                pageSize = 50,                     // Number of items per page
-                enablePlaceholders = false         // Disable placeholders to improve performance
+                pageSize = 50,
+                enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                newsDatabase.newsDao().pagingSource(query!!)   // Paging source from local database (Room)
+                newsDatabase.newsDao().pagingSource()   // Paging source from local database (Room)
             },
             remoteMediator = NewsRemoteMediator(
                 query = query,

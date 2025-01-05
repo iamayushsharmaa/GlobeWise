@@ -25,7 +25,7 @@ interface NewsDao {
     suspend fun upsertAll(articles: List<ArticleEntity>)
 
     @Query("SELECT * FROM articles")
-    fun pagingSource(query: String): PagingSource<Int, ArticleEntity>
+    fun pagingSource(): PagingSource<Int, ArticleEntity>
 
     @Query("DELETE FROM articles")
     suspend fun clearAll()
