@@ -50,7 +50,7 @@ class NewsRemoteMediator @Inject constructor(
                 )
             } else {
                 newsApiService.getTopHeadLine(
-                    country = country ?: "us",
+                    country = country ?: "in",
                     category = category ?: "general",
                     pageSize = pageSize,
                     page = loadKey
@@ -70,7 +70,6 @@ class NewsRemoteMediator @Inject constructor(
             MediatorResult.Error(e)
         }catch (e: IOException){
             MediatorResult.Error(e)
-
         }
     }
 }

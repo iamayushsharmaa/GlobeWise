@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import com.example.globewise.view.data.BottomNavItem
 import com.example.globewise.view.home.bottomnav.Bookmark
 import com.example.globewise.view.home.bottomnav.BottomNavigationBar
+import com.example.globewise.view.home.bottomnav.Explore
 import com.example.globewise.view.home.bottomnav.Home
 import com.example.globewise.view.home.bottomnav.Profile
 import com.example.globewise.view.home.bottomnav.Search
@@ -30,7 +31,7 @@ fun MainScreen(navController: NavController) {
     ) {
         when (currentRoute) {
             BottomNavItem.Home.route -> Home()
-            BottomNavItem.Search.route -> Search()
+            BottomNavItem.Search.route -> Explore()
             BottomNavItem.Bookmark.route -> Bookmark()
             BottomNavItem.Profile.route -> Profile()
         }

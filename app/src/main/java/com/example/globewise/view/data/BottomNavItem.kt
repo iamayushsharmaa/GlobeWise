@@ -4,8 +4,8 @@ import com.example.globewise.R
 
 sealed class BottomNavItem(
     val route: String,
-    val filledIcon: Int, // Icon for the selected state
-    val outlineIcon: Int, // Icon for the unselected state
+    val filledIcon: Int,
+    val outlineIcon: Int,
     val title: String
 ) {
     object Home : BottomNavItem("home", R.drawable.icon_homefilled, R.drawable.icon_homeblank, "Home")

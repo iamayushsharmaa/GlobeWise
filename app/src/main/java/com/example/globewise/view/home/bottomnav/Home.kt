@@ -1,6 +1,7 @@
 package com.example.globewise.view.home.bottomnav
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -42,64 +44,84 @@ fun Home(
             ).show()
         }
     }
-    Column (
+    Scaffold (
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Row(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .padding(it)
         ) {
-            Text(
-                text = "Home",
-                fontFamily = poppinsFontFamily,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-
-        if (articles.loadState.refresh is LoadState.Loading){
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-            )
-        }else{
-            SlideImageCard(
-                modifier = Modifier
-                    .padding(8.dp)
-            )
-
-            Text(
-                text = "News",
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(vertical = 12.dp, horizontal = 8.dp)
-            )
-
-            LazyColumn(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp)
+                    .padding(vertical = 5.dp, horizontal = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                items(articles.itemSnapshotList) { article ->
-                    if (article != null) {
-                        NewsCard(
-                            modifier = Modifier
-                                .padding(8.dp),
-                            article = article
-                        )
-                    }
+                Text(
+                    text = "Home",
+                    fontFamily = poppinsFontFamily,
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            if (articles.loadState.refresh is LoadState.Loading) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(10.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .padding(5.dp)
+                    )
                 }
-                item {
-                    if (articles.loadState.append is LoadState.Loading){
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .padding(5.dp)
-                                .align(Alignment.CenterHorizontally)
-                        )
+            } else {
+                SlideImageCard(
+                    modifier = Modifier
+                        .padding(8.dp)
+                )
+
+                Text(
+                    text = "News",
+                    fontFamily = poppinsFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 28.sp,
+                    modifier = Modifier.padding(vertical = 12.dp, horizontal = 12.dp)
+                )
+
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
+                    items(articles.itemSnapshotList) { article ->
+                        if (article != null) {
+                            NewsCard(
+                                modifier = Modifier
+                                    .padding(8.dp),
+                                article = article
+                            )
+                        }
+                    }
+                    item {
+                        if (articles.loadState.append is LoadState.Loading) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(10.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier
+                                        .padding(5.dp)
+                                )
+                            }
+
+                        }
                     }
                 }
             }

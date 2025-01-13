@@ -31,7 +31,8 @@ fun SlideImageCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(260.dp),
+            .height(260.dp)
+            .padding(16.dp),
         elevation = CardDefaults.cardElevation(8.dp),
         shape = RoundedCornerShape(22.dp)
     ){

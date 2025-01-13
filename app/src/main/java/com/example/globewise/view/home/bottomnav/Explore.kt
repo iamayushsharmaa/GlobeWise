@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -72,75 +73,79 @@ fun Explore() {
             selectedTabIndex = pagerState.currentPage
         }
     }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.White),
-        verticalArrangement = Arrangement.Top
-    ) {
+
+    Scaffold (modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
+                .fillMaxSize()
+                .padding(it)
+                .background(color = Color.White),
+            verticalArrangement = Arrangement.Top
         ) {
-            Text(
-                text = "Explore",
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.Bold,
-                fontSize = 26.sp,
-                modifier = Modifier.padding(top = 5.dp, start = 8.dp)
-            )
-            Text(
-                text = "News from around the world.",
-                fontFamily = poppinsFontFamily,
-                fontWeight = FontWeight.Normal,
-                fontSize = 13.sp,
-                modifier = Modifier.padding(top = 3.dp, start = 8.dp)
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            ) {
+                Text(
+                    text = "Explore",
+                    fontFamily = poppinsFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 26.sp,
+                    modifier = Modifier.padding(top = 5.dp, start = 8.dp)
+                )
+                Text(
+                    text = "News from around the world.",
+                    fontFamily = poppinsFontFamily,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 13.sp,
+                    modifier = Modifier.padding(top = 3.dp, start = 8.dp)
+                )
 
-            SearchField(
-                modifier = Modifier.padding(top = 8.dp),
-                onSearchClick = {
+                SearchField(
+                    modifier = Modifier.padding(top = 8.dp),
+                    onSearchClick = {
 
-                }
-            )
-        }
-        ScrollableTabRow(
-            selectedTabIndex = selectedTabIndex,
-            containerColor = Color.White,
-            contentColor = Color.Black,
-        ) {
-            tabItems.forEachIndexed { index, item ->
-                Tab(
-                    selected = index == selectedTabIndex,
-                    onClick = {
-                        selectedTabIndex = index
-                    },
-                    text = {
-                        Text(
-                            text = item.title,
-                            fontFamily = poppinsFontFamily,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 14.sp
-                        )
                     }
                 )
             }
-        }
-        HorizontalPager(
-            state = pagerState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        ) { index ->
-            when (index) {
-                0 -> ForYou()
-                1 -> Sports()
-                2 -> Entertainment()
-                3 -> Business()
-                4 -> Health()
-                5 -> Science()
-                6 -> Technology()
+            ScrollableTabRow(
+                selectedTabIndex = selectedTabIndex,
+                containerColor = Color.White,
+                contentColor = Color.Black,
+            ) {
+                tabItems.forEachIndexed { index, item ->
+                    Tab(
+                        selected = index == selectedTabIndex,
+                        onClick = {
+                            selectedTabIndex = index
+                        },
+                        text = {
+                            Text(
+                                text = item.title,
+                                fontFamily = poppinsFontFamily,
+                                fontWeight = FontWeight.Normal,
+                                fontSize = 14.sp
+                            )
+                        }
+                    )
+                }
+            }
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) { index ->
+                when (index) {
+                    0 -> ForYou()
+                    1 -> Sports()
+                    2 -> Entertainment()
+                    3 -> Business()
+                    4 -> Health()
+                    5 -> Science()
+                    6 -> Technology()
+                }
             }
         }
     }

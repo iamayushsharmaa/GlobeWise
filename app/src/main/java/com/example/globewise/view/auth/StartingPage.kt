@@ -81,7 +81,7 @@ fun StartingPage(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(5.dp),
+                            .padding(8.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
@@ -95,8 +95,8 @@ fun StartingPage(
                             fontFamily = poppinsFontFamily,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.White,
-                            fontSize = 18.sp,
-                            modifier = Modifier.padding(start = 10.dp)
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(start = 14.dp)
                         )
                     }
                 }
@@ -117,7 +117,7 @@ fun StartingPage(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(5.dp),
+                            .padding(8.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
@@ -131,21 +131,21 @@ fun StartingPage(
                             text = "Sign up with Email",
                             fontFamily = poppinsFontFamily,
                             fontWeight = FontWeight.SemiBold,
-                            fontSize = 18.sp,
+                            fontSize = 16.sp,
                             color = Color.White,
-                            modifier = Modifier.padding(start = 10.dp)
+                            modifier = Modifier.padding(start = 14.dp)
                         )
                     }
                 }
                 Text(
                     text = "Already have an account? Sign in!",
                     fontFamily = poppinsFontFamily,
-                    fontWeight = FontWeight.Black,
-                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 12.sp,
                     color = Color.Black,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 16.dp, top = 5.dp)
+                        .padding(bottom = 16.dp)
                         .clickable {
                             navController.navigate("login")
                         },

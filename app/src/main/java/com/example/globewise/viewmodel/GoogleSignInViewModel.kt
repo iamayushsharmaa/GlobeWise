@@ -9,9 +9,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.globewise.data.model.auth.SignInState
+import com.example.globewise.data.model.auth.UserData
 import com.example.globewise.domain.firebase.GoogleAuthUiClient
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +27,13 @@ class SignInViewModel @Inject constructor(
 
     private val _signInState = MutableLiveData<SignInState>()
     val signInState: LiveData<SignInState> get() = _signInState
+
+    private val _userData = MutableStateFlow<UserData?>(null)
+    val userData: StateFlow<UserData?> = _userData
+
+    init {
+        _userData.value = googleAuthUiClient.getSignedInUser()
+    }
 
     fun onGoogleSignInClick(launcher: ManagedActivityResultLauncher<IntentSenderRequest, ActivityResult>) {
         viewModelScope.launch {
@@ -58,5 +68,12 @@ class SignInViewModel @Inject constructor(
 
     fun resetState() {
         _signInState.value = SignInState(isSignInSuccessful = false)
+    }
+
+    fun signOut() {
+        viewModelScope.launch {
+            googleAuthUiClient.signOut()
+            _signInState.value = SignInState(isSignInSuccessful = false)
+        }
     }
 }
