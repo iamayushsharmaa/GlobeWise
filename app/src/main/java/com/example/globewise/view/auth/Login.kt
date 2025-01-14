@@ -22,7 +22,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,7 +49,6 @@ import com.example.globewise.viewmodel.EmailSignInViewModel
 fun Login(
     viewModel: EmailSignInViewModel = hiltViewModel(),
     navController: NavController,
-    onLoginSuccess : () -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -62,21 +60,6 @@ fun Login(
     val authState by viewModel.authState.collectAsState(initial = AuthState.Idle)
     val context = LocalContext.current
 
-    LaunchedEffect(authState) {
-        when (authState) {
-            is AuthState.Loading -> {
-
-            }
-            is AuthState.Success -> {
-               onLoginSuccess()            }
-            is AuthState.Error -> {
-                // Show an error message
-                val errorMessage = (authState as AuthState.Error).message
-                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-            }
-            AuthState.Idle -> TODO()
-        }
-    }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -93,18 +76,18 @@ fun Login(
                 is AuthState.Loading -> {
                   ProgressDialogBox(
                       showDialog = true,
-                      text = "Loading...",
+                      text = "Signing in...",
                       onDismiss = {}
                   )
                 }
                 is AuthState.Success -> {
-                    navController.navigate("homeScreen") {
-                        popUpTo("login") { inclusive = true }
+                    navController.navigate("main_screen") {
+                        popUpTo(0)
                     }
                 }
                 is AuthState.Error -> {
                     val errorMessage = (authState as AuthState.Error).message
-                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Try agian", Toast.LENGTH_SHORT).show()
                 }
                 else -> {}
             }
@@ -142,15 +125,13 @@ fun Login(
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    placeholder = {
-                        Text("Name", color = Color.Black)
-                    },
+
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = R.drawable.icon_user),
                             contentDescription = "",
                             tint = Color.Black,
-                            modifier = Modifier.size(26.dp)
+                            modifier = Modifier.size(22.dp)
                         )
                     },
                     label = { Text("Name") },
@@ -159,12 +140,14 @@ fun Login(
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 8.dp),
                     colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color.White,
-                        unfocusedContainerColor = Color.White,
+                        focusedContainerColor = Color(0xFFD4D4D4),
+                        unfocusedContainerColor = Color(0xFFD4D4D4),
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                         focusedTextColor = Color.Black,
-                        unfocusedTextColor = Color.Black
+                        unfocusedTextColor = Color.Black,
+                        unfocusedLabelColor = Color.Gray,
+                        focusedLabelColor = Color.Gray
                     )
                 )
             }
@@ -172,15 +155,13 @@ fun Login(
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                placeholder = {
-                    Text("Email", color = Color.Gray)
-                },
                 label = {Text("Email")},
                 leadingIcon = {
                     Icon(
                         painter = painterResource(id = R.drawable.icon_email),
                         contentDescription = "email icon",
-                        modifier = Modifier.size(26.dp)
+                        tint = Color.Black,
+                        modifier = Modifier.size(22.dp)
                     )
                 },
                 shape = RoundedCornerShape(16.dp),
@@ -188,27 +169,27 @@ fun Login(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 5.dp),
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
+                    focusedContainerColor = Color(0xFFD4D4D4),
+                    unfocusedContainerColor = Color(0xFFD4D4D4),
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                     focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black
+                    unfocusedTextColor = Color.Black,
+                    unfocusedLabelColor = Color.Gray,
+                    focusedLabelColor = Color.Gray
                 )
             )
 
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                placeholder = {
-                    Text("Password", color = Color.Gray)
-                },
                 label = { Text(text = "Password") },
                 leadingIcon = {
                     Icon(
-                        painter = painterResource(id = R.drawable.icon_user),
+                        painter = painterResource(id = R.drawable.lock),
                         contentDescription = "",
-                        modifier = Modifier.size(26.dp)
+                        tint = Color.Black,
+                        modifier = Modifier.size(22.dp)
                     )
                 },
                 trailingIcon = {
@@ -218,6 +199,7 @@ fun Login(
                                 id = if (passwordVisible) R.drawable.show_password_icon
                                 else R.drawable.icon_hidepassword
                             ),
+                            modifier = Modifier.size(22.dp),
                             contentDescription = if (passwordVisible) "Hide Password" else "Show Password"
                         )
                     }
@@ -225,12 +207,14 @@ fun Login(
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
 
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
+                    focusedContainerColor = Color(0xFFD4D4D4),
+                    unfocusedContainerColor = Color(0xFFD4D4D4),
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                     focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black
+                    unfocusedTextColor = Color.Black,
+                    unfocusedLabelColor = Color.Gray,
+                    focusedLabelColor = Color.Gray
                 ),
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier

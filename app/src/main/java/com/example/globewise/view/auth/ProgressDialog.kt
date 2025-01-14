@@ -16,8 +16,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.example.globewise.ui.theme.poppinsFontFamily
 
 @Composable
 fun ProgressDialogBox(
@@ -32,7 +36,7 @@ fun ProgressDialogBox(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
-                    .background(color = MaterialTheme.colorScheme.secondary, shape = RoundedCornerShape(12.dp))
+                    .background(shape = RoundedCornerShape(22.dp), color = Color.White)
                     .padding(24.dp),
                 contentAlignment = Alignment.Center
             ) {
@@ -41,15 +45,17 @@ fun ProgressDialogBox(
                     verticalArrangement = Arrangement.Center
                 ) {
                     CircularProgressIndicator(
-                        modifier = Modifier.size(50.dp),
-                        color = MaterialTheme.colorScheme.primary,
-                        strokeWidth = 7.dp
+                        modifier = Modifier.size(42.dp),
+                        color = Color.Black,
+                        strokeWidth = 8.dp
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
                         text = text,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.primary
+                        fontSize = 14.sp,
+                        fontFamily = poppinsFontFamily,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color.Black
                     )
                 }
             }

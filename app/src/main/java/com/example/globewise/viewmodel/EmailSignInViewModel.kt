@@ -40,12 +40,7 @@ class EmailSignInViewModel @Inject constructor(
                         password = password,
                         name = name
                     )
-                    try {
-                        firestoreDb.saveUser(user)
-                        _authState.value = AuthState.Success("User registered successfully")
-                    } catch (e: Exception) {
-                        _authState.value = AuthState.Error("User saved in Firestore failed: ${e.message}")
-                    }
+                    _authState.value = AuthState.Success("User registered successfully")
                 }
                 is AuthResult.Error -> {
                     _authState.value = AuthState.Error(authResult.message)

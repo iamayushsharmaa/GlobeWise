@@ -20,6 +20,7 @@ import com.example.globewise.ui.theme.GlobeWiseTheme
 import com.example.globewise.view.auth.Login
 import com.example.globewise.viewmodel.SignInViewModel
 import com.example.globewise.view.auth.StartingPage
+import com.example.globewise.view.home.bottomnav.Search
 import com.example.globewise.viewmodel.EmailSignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -65,16 +66,14 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("login") {
                         Login(
-                            navController = navController,
-                            onLoginSuccess = {
-                                navController.navigate("main_screen") {
-                                    popUpTo(0)
-                                }
-                            }
+                            navController = navController
                         )
                     }
                     composable("main_screen"){
                         MainScreen(navController)
+                    }
+                    composable("search"){
+                        Search(navController)
                     }
                 }
             }

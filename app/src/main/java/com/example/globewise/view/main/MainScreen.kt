@@ -31,9 +31,9 @@ fun MainScreen(navController: NavController) {
     ) {
         when (currentRoute) {
             BottomNavItem.Home.route -> Home()
-            BottomNavItem.Search.route -> Explore()
+            BottomNavItem.Search.route -> Explore(navController)
             BottomNavItem.Bookmark.route -> Bookmark()
-            BottomNavItem.Profile.route -> Profile()
+            BottomNavItem.Profile.route -> Profile(navController)
         }
     }
 }

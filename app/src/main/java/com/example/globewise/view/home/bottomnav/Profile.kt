@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.globewise.R
 import com.example.globewise.ui.theme.Black
 import com.example.globewise.ui.theme.poppinsFontFamily
@@ -34,9 +35,10 @@ import com.example.globewise.viewmodel.SignInViewModel
 
 @Composable
 fun Profile(
+    navController: NavController,
     viewModel: SignInViewModel = hiltViewModel()
 ) {
-    val userData = viewModel.userData.collectAsState()
+    val userData = viewModel.userData.collectAsState(null)
 
     Scaffold (
         modifier = Modifier
@@ -92,6 +94,9 @@ fun Profile(
             Button(
                 onClick = {
                     viewModel.signOut()
+                    navController.navigate("starting_page") {
+                        popUpTo(0)
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
