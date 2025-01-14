@@ -28,8 +28,9 @@ import com.example.globewise.viewmodel.BookmarkViewModel
 import com.example.globewise.viewmodel.NewsViewModel
 
 @Composable
-fun Entertainment(newsViewModel: NewsViewModel = hiltViewModel(),
-                  bookmarkViewModel: BookmarkViewModel = hiltViewModel()
+fun Entertainment(
+    newsViewModel: NewsViewModel = hiltViewModel(),
+    bookmarkViewModel: BookmarkViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val articles = newsViewModel.newsPagingFlow.collectAsLazyPagingItems()

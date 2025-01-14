@@ -50,8 +50,8 @@ class NewsRemoteMediator @Inject constructor(
                 )
             } else {
                 newsApiService.getTopHeadLine(
-                    country = country ?: "in",
-                    category = category ?: "general",
+                    country = country ?: "us",
+                    category = category!!,
                     pageSize = pageSize,
                     page = loadKey
                 )

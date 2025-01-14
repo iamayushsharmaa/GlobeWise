@@ -95,7 +95,10 @@ object Module {
 
     @Provides
     fun provideNewsPager(
-        newsRepository: NewsPagerRepository
+        newsRepository: NewsPagerRepository,
+        query: String?,
+        country: String?,
+        category: String?
     ): Pager<Int, ArticleEntity> {
         return newsRepository.getNewsPager(query = null, country = null, category = null)
     }
