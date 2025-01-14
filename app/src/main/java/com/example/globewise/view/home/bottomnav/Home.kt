@@ -27,11 +27,13 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.globewise.ui.theme.poppinsFontFamily
 import com.example.globewise.view.home.card.NewsCard
 import com.example.globewise.view.home.card.SlideImageCard
+import com.example.globewise.viewmodel.BookmarkViewModel
 import com.example.globewise.viewmodel.NewsViewModel
 
 @Composable
 fun Home(
     newsViewModel : NewsViewModel = hiltViewModel(),
+    bookmarkViewModel: BookmarkViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val articles = newsViewModel.newsPagingFlow.collectAsLazyPagingItems()
@@ -107,7 +109,13 @@ fun Home(
                             NewsCard(
                                 modifier = Modifier
                                     .padding(8.dp),
-                                article = article
+                                article = article,
+                                onClickSave = {
+                                    bookmarkViewModel.saveArticle(article)
+                                },
+                                onClickDelete = {
+                                    bookmarkViewModel.deleteArticle(article)
+                                }
                             )
                         }
                     }

@@ -46,3 +46,23 @@ fun SourceEntity.toSource(): Source {
         name = this.name ?: ""
     )
 }
+
+fun Article.toEntity(): ArticleEntity {
+    return ArticleEntity(
+        author = this.author,
+        content = this.content,
+        description = this.description,
+        publishedAt = this.publishedAt,
+        source = this.source.toEntity(),
+        title = this.title,
+        url = this.url,
+        urlToImage = this.urlToImage
+    )
+}
+
+fun Source.toEntity(): SourceEntity {
+    return SourceEntity(
+        id = this.id,
+        name = this.name
+    )
+}

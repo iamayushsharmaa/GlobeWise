@@ -19,7 +19,8 @@ import javax.inject.Inject
 class GoogleAuthUiClient @Inject constructor(
     private val auth : FirebaseAuth,
     private val context: Context,
-    private val oneTapClient : SignInClient
+    private val oneTapClient : SignInClient,
+    private val saveAuthFb: SaveAuthFb
 ){
 
     suspend fun SignIn(): IntentSender?{
@@ -39,7 +40,8 @@ class GoogleAuthUiClient @Inject constructor(
         UserData(
             userId = uid,
             userName = displayName,
-            profilePhoto = photoUrl?.toString()
+            profilePhoto = photoUrl,
+            userEmail = email
         )
     }
     suspend fun SignInWithIntent(intent : Intent): SignInResult {
@@ -48,12 +50,22 @@ class GoogleAuthUiClient @Inject constructor(
         val googleCredential = GoogleAuthProvider.getCredential(googleIdToken,null)
         return try {
             val user = auth.signInWithCredential(googleCredential).await().user
+
+            user?.let {
+                saveAuthFb.saveUserData(
+                    uid = it.uid,
+                    name = it.displayName.orEmpty(),
+                    email = it.email.orEmpty(),
+                    profilePhoto = it.photoUrl
+                )
+            }
             SignInResult(
                 data = user?.run {
                     UserData(
                         userId = uid,
                         userName = displayName,
-                        profilePhoto = photoUrl?.toString()
+                        userEmail = email,
+                        profilePhoto = photoUrl
                     )
                 },
                 errorMessage = null

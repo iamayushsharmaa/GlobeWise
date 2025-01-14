@@ -6,7 +6,6 @@ import com.example.globewise.data.model.auth.AuthResult
 import com.example.globewise.data.model.auth.AuthState
 import com.example.globewise.data.model.auth.User
 import com.example.globewise.domain.firebase.AuthRepository
-import com.example.globewise.domain.firebase.SaveUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,7 +15,6 @@ import javax.inject.Inject
 @HiltViewModel
 class EmailSignInViewModel @Inject constructor(
     private val repository: AuthRepository,
-    private val firestoreDb: SaveUserRepository
 ) : ViewModel() {
 
     private val _authState = MutableStateFlow<AuthState>(AuthState.Idle)
@@ -32,14 +30,9 @@ class EmailSignInViewModel @Inject constructor(
     fun registerUser(email: String, password: String, name: String) {
         viewModelScope.launch {
             _authState.value = AuthState.Loading
-            val authResult = repository.registerUser(email, password)
+            val authResult = repository.registerUser(email, password,name)
             when (authResult) {
                 is AuthResult.Success -> {
-                    val user = User(
-                        email = email,
-                        password = password,
-                        name = name
-                    )
                     _authState.value = AuthState.Success("User registered successfully")
                 }
                 is AuthResult.Error -> {

@@ -8,6 +8,7 @@ import com.example.globewise.data.local.NewsDao
 import com.example.globewise.data.local.NewsDatabase
 import com.example.globewise.data.remote.NewsApiService
 import com.example.globewise.domain.repository.NewsPagerRepository
+import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,6 +35,7 @@ object Module {
             "articles_db"
         ).build()
     }
+
 
     @Provides
     fun provideUserDao(database: NewsDatabase): NewsDao {
@@ -74,6 +76,12 @@ object Module {
     @Singleton
     fun provideNewsApiService(retrofit: Retrofit): NewsApiService {
         return retrofit.create(NewsApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseDatabase(): FirebaseDatabase {
+        return FirebaseDatabase.getInstance()
     }
 
     @Provides

@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.globewise.data.model.auth.SignInState
 import com.example.globewise.data.model.auth.UserData
 import com.example.globewise.domain.firebase.GoogleAuthUiClient
+import com.example.globewise.domain.firebase.SaveAuthFb
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val googleAuthUiClient: GoogleAuthUiClient,
-    private val mAuth: FirebaseAuth
+    private val mAuth: FirebaseAuth,
 ) : ViewModel() {
 
     private val _signInState = MutableLiveData<SignInState>()

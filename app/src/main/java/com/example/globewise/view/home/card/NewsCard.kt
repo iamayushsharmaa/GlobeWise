@@ -42,7 +42,9 @@ import com.example.globewise.ui.theme.poppinsFontFamily
 @Composable
 fun NewsCard(
     modifier: Modifier = Modifier,
-    article: Article
+    article: Article,
+    onClickSave: (Article) -> Unit = {},
+    onClickDelete: (Article) -> Unit = {}
 ) {
     var isBookmarked by remember { mutableStateOf(false) }
 
@@ -100,7 +102,14 @@ fun NewsCard(
                         modifier = Modifier.weight(1f)
                     )
                     IconButton(
-                        onClick = { isBookmarked = !isBookmarked },
+                        onClick = {
+                            if (isBookmarked) {
+                                onClickDelete(article)
+                            }else{
+                                onClickSave(article)
+                            }
+                            isBookmarked = !isBookmarked
+                        },
                         modifier = Modifier.padding(0.dp)
                     ) {
                         Icon(
