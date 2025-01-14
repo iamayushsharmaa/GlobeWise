@@ -29,7 +29,8 @@ fun BottomNavigationBar(
         BottomNavItem.Profile
     )
     BottomNavigation(
-        modifier = Modifier.padding(5.dp), backgroundColor = Color.White
+        modifier = Modifier,
+        backgroundColor = Color.White
     ) {
         items.forEach { item ->
             val isSelected = currentRoute == item.route

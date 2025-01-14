@@ -68,7 +68,6 @@ fun Explore(
             title = "Technology"
         ),
     )
-
     var selectedTabIndex by remember { mutableStateOf(0) }
     val pagerState = rememberPagerState { tabItems.size }
 
@@ -92,27 +91,21 @@ fun Explore(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp)
+                    .padding(5.dp)
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 5.dp, horizontal = 12.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "Explore",
-                        fontFamily = poppinsFontFamily,
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+                Text(
+                    text = "Explore",
+                    fontFamily = poppinsFontFamily,
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(horizontal = 7.dp)
+                )
                 Text(
                     text = "News from around the world.",
                     fontFamily = poppinsFontFamily,
                     fontWeight = FontWeight.Normal,
                     fontSize = 13.sp,
-                    modifier = Modifier.padding(top = 0.dp, start = 10.dp)
+                    modifier = Modifier.padding(horizontal = 7.dp)
                 )
 
                 SearchField(

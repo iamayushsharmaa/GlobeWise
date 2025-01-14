@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -22,31 +23,34 @@ import com.example.globewise.ui.theme.poppinsFontFamily
 @Composable
 fun Bookmark() {
 
-    Scaffold (modifier = Modifier.fillMaxSize()) {
+    Scaffold (
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
-                .background(color = Color.White),
-            verticalArrangement = Arrangement.Top
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-
+                    .padding(vertical = 5.dp, horizontal = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Bookmarks",
+                    text = "Bookmark",
                     fontFamily = poppinsFontFamily,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 26.sp,
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 5.dp)
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
+
             LazyColumn(
                 modifier = Modifier
                     .padding(8.dp)
             ) {
+
             }
 
 
